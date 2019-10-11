@@ -1,15 +1,8 @@
 package in.khofid.academy.ui.home;
 
 import android.os.Bundle;
-import android.view.MenuItem;
-import android.widget.TextView;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
-import androidx.navigation.ui.AppBarConfiguration;
-import androidx.navigation.ui.NavigationUI;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -17,22 +10,15 @@ import in.khofid.academy.R;
 
 public class HomeActivity extends AppCompatActivity {
 
-    private TextView mTextMessage;
-
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
-            = new BottomNavigationView.OnNavigationItemSelectedListener() {
-        @Override
-        public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-            switch (menuItem.getItemId()) {
-                case R.id.action_home:
-                    mTextMessage.setText(R.string.title_home);
-                    return true;
-                case R.id.action_bookmark:
-                    mTextMessage.setText(R.string.title_dashboard);
-                    return true;
-            }
-            return false;
+            = item -> {
+        switch (item.getItemId()) {
+            case R.id.action_home:
+                return true;
+            case R.id.action_bookmark:
+                return true;
         }
+        return false;
     };
 
     @Override
@@ -40,7 +26,6 @@ public class HomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-        mTextMessage = findViewById(R.id.message);
 
         BottomNavigationView navView = findViewById(R.id.nav_view);
         // Passing each menu ID as a set of Ids because each
