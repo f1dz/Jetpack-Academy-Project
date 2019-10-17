@@ -16,6 +16,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import in.khofid.academy.R;
 import in.khofid.academy.data.CourseEntity;
@@ -26,16 +27,16 @@ public class BookmarkAdapter extends RecyclerView.Adapter<BookmarkAdapter.Bookma
     private final Activity activity;
     private final BookmarkFragmentCallback callback;
 
-    private ArrayList<CourseEntity> courses = new ArrayList<>();
+    private List<CourseEntity> courses = new ArrayList<>();
 
     public BookmarkAdapter(Activity activity, BookmarkFragmentCallback callback) {
         this.activity = activity;
         this.callback = callback;
     }
 
-    public void setListCourses(ArrayList<CourseEntity> courses) {
+    public void setListCourses(List<CourseEntity> courses) {
         if(courses == null) return;
-        this.courses.clear();;
+        this.courses.clear();
         this.courses.addAll(courses);
     }
 

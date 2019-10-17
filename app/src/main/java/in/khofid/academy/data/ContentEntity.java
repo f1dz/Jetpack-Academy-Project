@@ -7,7 +7,7 @@ public class ContentEntity {
         this.mContent = mContent;
     }
 
-    public String getmContent() {
+    public String getContent() {
         return mContent;
     }
 

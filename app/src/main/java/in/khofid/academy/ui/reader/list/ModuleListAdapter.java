@@ -26,7 +26,7 @@ public class ModuleListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.items_module_list, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.items_module_list_custom, parent, false);
         return new ModuleViewHolder(view);
     }
 
@@ -57,7 +57,7 @@ public class ModuleListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
         public ModuleViewHolder(@NonNull View itemView) {
             super(itemView);
-            textTitle = itemView.findViewById(R.id.text_title);
+            textTitle = itemView.findViewById(R.id.text_module_title);
             textLastSeen = itemView.findViewById(R.id.text_last_seen);
         }
 

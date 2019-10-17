@@ -33,7 +33,7 @@ public class ModuleEntity {
     }
 
     public String getTitle() {
-        return mTitle;
+        return this.mTitle;
     }
 
     public void setTitle(String title) {

@@ -11,9 +11,11 @@ import android.widget.ProgressBar;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProviders;
 
 import in.khofid.academy.R;
-import in.khofid.academy.data.ContentEntity;
+import in.khofid.academy.data.ModuleEntity;
+import in.khofid.academy.ui.reader.CourseReaderViewModel;
 
 
 /**
@@ -24,6 +26,7 @@ public class ModuleContentFragment extends Fragment {
 
     private WebView webView;
     private ProgressBar progressBar;
+    private CourseReaderViewModel viewModel;
 
     public ModuleContentFragment() {
         // Required empty public constructor
@@ -52,12 +55,13 @@ public class ModuleContentFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         if(getActivity() != null) {
-            ContentEntity entity = new ContentEntity("<h3 class=\\\"fr-text-bordered\\\">Contoh Content</h3><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>");
-            populateWebView(entity);
+            viewModel = ViewModelProviders.of(getActivity()).get(CourseReaderViewModel.class);
+            ModuleEntity module = viewModel.getSelectedModule();
+            populateWebView(module);
         }
     }
 
-    private void populateWebView(ContentEntity content) {
-        webView.loadData(content.getmContent(), "text/html", "UTF-8");
+    private void populateWebView(ModuleEntity moduleEntity) {
+        webView.loadData(moduleEntity.contentEntity.getContent(), "text/html", "UTF-8");
     }
 }
