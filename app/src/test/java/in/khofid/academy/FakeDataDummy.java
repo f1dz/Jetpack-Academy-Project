@@ -1,4 +1,4 @@
-package in.khofid.academy.utils;
+package in.khofid.academy;
 
 import java.util.ArrayList;
 
@@ -9,7 +9,6 @@ import in.khofid.academy.data.source.remote.response.CourseResponse;
 import in.khofid.academy.data.source.remote.response.ModuleResponse;
 
 public class FakeDataDummy {
-
     public static ArrayList<CourseEntity> generateDummyCourses() {
 
         ArrayList<CourseEntity> courses = new ArrayList<>();
@@ -175,5 +174,4 @@ public class FakeDataDummy {
     public static ContentResponse generateRemoteDummyContent(String moduleId) {
         return new ContentResponse(moduleId, "This is a dummy content");
     }
-
 }
