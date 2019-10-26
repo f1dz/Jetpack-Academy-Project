@@ -10,6 +10,7 @@ import androidx.lifecycle.ViewModelProviders;
 import in.khofid.academy.R;
 import in.khofid.academy.ui.reader.content.ModuleContentFragment;
 import in.khofid.academy.ui.reader.list.ModuleListFragment;
+import in.khofid.academy.viewmodel.ViewModelFactory;
 
 public class CourseReaderActivity extends AppCompatActivity implements CourseReaderCallback {
 
@@ -21,7 +22,7 @@ public class CourseReaderActivity extends AppCompatActivity implements CourseRea
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_course_reader);
 
-        viewModel = ViewModelProviders.of(this).get(CourseReaderViewModel.class);
+        viewModel = obtainViewModel(this);
 
         Bundle bundle = getIntent().getExtras();
         if(bundle != null) {
@@ -31,6 +32,11 @@ public class CourseReaderActivity extends AppCompatActivity implements CourseRea
                 populateFragment();
             }
         }
+    }
+
+    private CourseReaderViewModel obtainViewModel(AppCompatActivity activity) {
+        ViewModelFactory factory = ViewModelFactory.getInstance(activity.getApplication());
+        return ViewModelProviders.of(activity, factory).get(CourseReaderViewModel.class);
     }
 
     private void populateFragment() {

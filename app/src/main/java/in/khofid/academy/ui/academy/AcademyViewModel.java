@@ -5,11 +5,17 @@ import androidx.lifecycle.ViewModel;
 import java.util.List;
 
 import in.khofid.academy.data.CourseEntity;
-import in.khofid.academy.utils.DataDummy;
+import in.khofid.academy.data.source.AcademyRepository;
 
 public class AcademyViewModel extends ViewModel {
 
+    private AcademyRepository academyRepository;
+
+    public AcademyViewModel(AcademyRepository mAcademyRepository) {
+        this.academyRepository = mAcademyRepository;
+    }
+
     public List<CourseEntity> getCourses() {
-        return DataDummy.generateDummyCourses();
+        return academyRepository.getAllCourses();
     }
 }

@@ -23,6 +23,7 @@ import in.khofid.academy.data.CourseEntity;
 import in.khofid.academy.data.ModuleEntity;
 import in.khofid.academy.ui.reader.CourseReaderActivity;
 import in.khofid.academy.utils.GlideApp;
+import in.khofid.academy.viewmodel.ViewModelFactory;
 
 public class DetailCourseActivity extends AppCompatActivity {
 
@@ -57,7 +58,7 @@ public class DetailCourseActivity extends AppCompatActivity {
         rvModule = findViewById(R.id.rv_module);
         imagePoster = findViewById(R.id.image_poster);
 
-        viewModel = ViewModelProviders.of(this).get(DetailCourseViewModel.class);
+        viewModel = obtainViewModel(this);
 
         Bundle extras = getIntent().getExtras();
         if(extras != null) {
@@ -79,6 +80,11 @@ public class DetailCourseActivity extends AppCompatActivity {
         rvModule.setAdapter(adapter);
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(rvModule.getContext(), DividerItemDecoration.VERTICAL);
         rvModule.addItemDecoration(dividerItemDecoration);
+    }
+
+    private DetailCourseViewModel obtainViewModel(AppCompatActivity activity) {
+        ViewModelFactory factory = ViewModelFactory.getInstance(activity.getApplication());
+        return ViewModelProviders.of(activity, factory).get(DetailCourseViewModel.class);
     }
 
     private void populateCourse(CourseEntity courseEntity) {

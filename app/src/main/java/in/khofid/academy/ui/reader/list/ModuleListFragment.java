@@ -11,6 +11,7 @@ import android.widget.ProgressBar;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -23,6 +24,7 @@ import in.khofid.academy.data.ModuleEntity;
 import in.khofid.academy.ui.reader.CourseReaderActivity;
 import in.khofid.academy.ui.reader.CourseReaderCallback;
 import in.khofid.academy.ui.reader.CourseReaderViewModel;
+import in.khofid.academy.viewmodel.ViewModelFactory;
 
 
 /**
@@ -63,10 +65,15 @@ public class ModuleListFragment extends Fragment implements MyAdapterClickListen
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         if(getActivity() != null) {
-            viewModel = ViewModelProviders.of(getActivity()).get(CourseReaderViewModel.class);
+            viewModel = obtainViewModel(getActivity());
             adapter = new ModuleListAdapter(this);
             populateRecyclerView(viewModel.getModules());
         }
+    }
+
+    private CourseReaderViewModel obtainViewModel(FragmentActivity activity) {
+        ViewModelFactory factory = ViewModelFactory.getInstance(activity.getApplication());
+        return ViewModelProviders.of(activity, factory).get(CourseReaderViewModel.class);
     }
 
     private void populateRecyclerView(ArrayList<ModuleEntity> modules) {

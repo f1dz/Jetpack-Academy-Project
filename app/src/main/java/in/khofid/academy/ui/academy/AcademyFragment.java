@@ -10,6 +10,7 @@ import android.widget.ProgressBar;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -18,6 +19,7 @@ import java.util.List;
 
 import in.khofid.academy.R;
 import in.khofid.academy.data.CourseEntity;
+import in.khofid.academy.viewmodel.ViewModelFactory;
 
 
 /**
@@ -59,7 +61,7 @@ public class AcademyFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
         if(getActivity() != null) {
 
-            viewModel = ViewModelProviders.of(this).get(AcademyViewModel.class);
+            viewModel = obtainViewModel(getActivity());
             courses = viewModel.getCourses();
 
             academyAdapter = new AcademyAdapter(getActivity());
@@ -69,5 +71,10 @@ public class AcademyFragment extends Fragment {
             rvCourse.setHasFixedSize(true);
             rvCourse.setAdapter(academyAdapter);
         }
+    }
+
+    private AcademyViewModel obtainViewModel(FragmentActivity activity) {
+        ViewModelFactory factory = ViewModelFactory.getInstance(activity.getApplication());
+        return ViewModelProviders.of(activity, factory).get(AcademyViewModel.class);
     }
 }
