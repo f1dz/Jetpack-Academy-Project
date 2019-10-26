@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.app.ShareCompat;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -19,6 +20,7 @@ import java.util.List;
 
 import in.khofid.academy.R;
 import in.khofid.academy.data.CourseEntity;
+import in.khofid.academy.viewmodel.ViewModelFactory;
 
 
 /**
@@ -73,7 +75,7 @@ public class BookmarkFragment extends Fragment implements BookmarkFragmentCallba
         super.onActivityCreated(savedInstanceState);
         if(getActivity() != null) {
 
-            viewModel = ViewModelProviders.of(this).get(BookmarkViewModel.class);
+            viewModel = obtainViewModel(getActivity());
             courses = viewModel.getBookmarks();
 
             adapter = new BookmarkAdapter(getActivity(), this);
@@ -83,5 +85,10 @@ public class BookmarkFragment extends Fragment implements BookmarkFragmentCallba
             rvBookmark.setHasFixedSize(true);
             rvBookmark.setAdapter(adapter);
         }
+    }
+
+    private BookmarkViewModel obtainViewModel(FragmentActivity activity) {
+        ViewModelFactory factory = ViewModelFactory.getInstance(activity.getApplication());
+        return ViewModelProviders.of(activity, factory).get(BookmarkViewModel.class);
     }
 }

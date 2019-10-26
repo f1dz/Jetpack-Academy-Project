@@ -6,26 +6,25 @@ import java.util.List;
 
 import in.khofid.academy.data.CourseEntity;
 import in.khofid.academy.data.ModuleEntity;
-import in.khofid.academy.utils.DataDummy;
+import in.khofid.academy.data.source.AcademyRepository;
 
 public class DetailCourseViewModel extends ViewModel {
     private CourseEntity mCourse;
 
     private String courseId;
 
-    public CourseEntity getCourse() {
-        for (int i = 0; i < DataDummy.generateDummyCourses().size(); i++) {
-            CourseEntity courseEntity = DataDummy.generateDummyCourses().get(i);
-            if(courseEntity.getCourseId().equals(courseId)) {
-                mCourse = courseEntity;
-            }
-        }
+    private AcademyRepository academyRepository;
 
-        return mCourse;
+    public DetailCourseViewModel(AcademyRepository mAcademyRepository) {
+        this.academyRepository = mAcademyRepository;
+    }
+
+    public CourseEntity getCourse() {
+        return academyRepository.getCourseWithModules(courseId);
     }
 
     public List<ModuleEntity> getModules(){
-        return DataDummy.generateDummyModules(getCourseId());
+        return academyRepository.getAllModulesByCourse(courseId);
     }
 
     public String getCourseId() {
