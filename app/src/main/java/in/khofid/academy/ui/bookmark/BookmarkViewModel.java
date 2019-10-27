@@ -1,5 +1,6 @@
 package in.khofid.academy.ui.bookmark;
 
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModel;
 
 import java.util.List;
@@ -15,7 +16,7 @@ public class BookmarkViewModel extends ViewModel {
         this.academyRepository = mAcademyRepository;
     }
 
-    List<CourseEntity> getBookmarks() {
+    LiveData<List<CourseEntity>> getBookmarks() {
         return academyRepository.getBookmarkedCourses();
     }
 }

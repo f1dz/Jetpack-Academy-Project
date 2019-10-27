@@ -17,7 +17,7 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import in.khofid.academy.R;
 import in.khofid.academy.data.ModuleEntity;
@@ -65,9 +65,15 @@ public class ModuleListFragment extends Fragment implements MyAdapterClickListen
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         if(getActivity() != null) {
+            progressBar.setVisibility(View.VISIBLE);
             viewModel = obtainViewModel(getActivity());
             adapter = new ModuleListAdapter(this);
-            populateRecyclerView(viewModel.getModules());
+            viewModel.getModules().observe(this, moduleEntities -> {
+                if(moduleEntities != null) {
+                    progressBar.setVisibility(View.GONE);
+                    populateRecyclerView(moduleEntities);
+                }
+            });
         }
     }
 
@@ -76,7 +82,7 @@ public class ModuleListFragment extends Fragment implements MyAdapterClickListen
         return ViewModelProviders.of(activity, factory).get(CourseReaderViewModel.class);
     }
 
-    private void populateRecyclerView(ArrayList<ModuleEntity> modules) {
+    private void populateRecyclerView(List<ModuleEntity> modules) {
         progressBar.setVisibility(View.GONE);
         adapter.setModules(modules);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
