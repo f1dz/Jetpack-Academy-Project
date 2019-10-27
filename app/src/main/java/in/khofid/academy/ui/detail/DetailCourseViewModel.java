@@ -1,5 +1,6 @@
 package in.khofid.academy.ui.detail;
 
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModel;
 
 import java.util.List;
@@ -19,11 +20,11 @@ public class DetailCourseViewModel extends ViewModel {
         this.academyRepository = mAcademyRepository;
     }
 
-    public CourseEntity getCourse() {
+    LiveData<CourseEntity> getCourse() {
         return academyRepository.getCourseWithModules(courseId);
     }
 
-    public List<ModuleEntity> getModules(){
+    public LiveData<List<ModuleEntity>> getModules(){
         return academyRepository.getAllModulesByCourse(courseId);
     }
 

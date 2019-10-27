@@ -1,5 +1,7 @@
 package in.khofid.academy.data.source;
 
+import androidx.lifecycle.LiveData;
+
 import java.util.List;
 
 import in.khofid.academy.data.CourseEntity;
@@ -7,13 +9,13 @@ import in.khofid.academy.data.ModuleEntity;
 
 public interface AcademyDataSource {
 
-    List<CourseEntity> getAllCourses();
+    LiveData<List<CourseEntity>> getAllCourses();
 
-    CourseEntity getCourseWithModules(String courseId);
+    LiveData<CourseEntity> getCourseWithModules(String courseId);
 
-    List<ModuleEntity> getAllModulesByCourse(String courseId);
+    LiveData<List<ModuleEntity>> getAllModulesByCourse(String courseId);
 
-    List<CourseEntity> getBookmarkedCourses();
+    LiveData<List<CourseEntity>> getBookmarkedCourses();
 
-    ModuleEntity getContent(String courseId, String moduleId);
+    LiveData<ModuleEntity> getContent(String courseId, String moduleId);
 }
