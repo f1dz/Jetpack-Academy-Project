@@ -1,13 +1,16 @@
 package in.khofid.academy.ui.academy;
 
+import androidx.test.espresso.IdlingRegistry;
 import androidx.test.rule.ActivityTestRule;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 
 import in.khofid.academy.R;
 import in.khofid.academy.testing.SingleFragmentActivity;
+import in.khofid.academy.utils.EspressoIdlingResource;
 import in.khofid.academy.utils.RecyclerViewItemCountAssertion;
 
 import static androidx.test.espresso.Espresso.onView;
@@ -23,16 +26,17 @@ public class AcademyFragmentTest {
 
     @Before
     public void setUp(){
+        IdlingRegistry.getInstance().register(EspressoIdlingResource.getEspressoIdlingResource());
         activityRule.getActivity().setFragment(academyFragment);
+    }
+
+    @After
+    public void tearDown() {
+        IdlingRegistry.getInstance().unregister(EspressoIdlingResource.getEspressoIdlingResource());
     }
 
     @Test
     public void loadCourses() {
-        try {
-            Thread.sleep(3000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
         onView(withId(R.id.rv_academy)).check(matches(isDisplayed()));
         onView(withId(R.id.rv_academy)).check(new RecyclerViewItemCountAssertion(5));
     }
